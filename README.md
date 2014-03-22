@@ -1,17 +1,17 @@
 awesomecfg
 ==========
 
-Mi configuración de awesome.
+Mi configuración de Awesome Window Manager.
 
-Me he basado en la configuración de 
+Me he basado en las configuraciones de: 
 
 https://github.com/romockee/powerarrow
-
-y
-
 https://github.com/esn89/powerarrow-dark
 
-Y partir de ahí he ido personalizando a mi gust la configuración.
+Y partir de ahí he ido personalizando a mi gusto la configuración.
+
+Todas las modificaciones se pueden encontrar en internat, no son nada fuera de lo normal, pero he subido
+esta configuración con el objetivo de tener un backup de mi configuración de awesome.
 
 Instalación
 -----------
@@ -24,6 +24,7 @@ En el terminal:
 - ``cd ~/.config/``
 - ``git clone https://github.com/francescarpi/awesomecfg.git awesome``
 
+¡Reiniciar awesime y listo!
 
 Nuevas funcionalidades
 ----------------------
