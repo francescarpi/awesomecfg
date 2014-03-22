@@ -90,7 +90,7 @@ end
 tags = {}
 
 if screen.count() == 1 then
-    tags[1] = awful.tag({ 1, 2, 3, 4, 5 }, 2)
+    tags[1] = awful.tag({ 1, 2, 3, 4, 5 }, 1, layouts[2])
 else
     tags[1] = awful.tag({ 1, 2, 3 }, 1, { layouts[1], layouts[3], layouts[2] })
     tags[2] = awful.tag({ 1, 2, 3 }, 2, { layouts[2], layouts[2], layouts[2] })
