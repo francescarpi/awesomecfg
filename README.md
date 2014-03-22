@@ -41,4 +41,3 @@ Capturas de pantalla
 --------------------
 
 ![Captura de pantalla](screenshot.png)
-Format: ![Alt Text](url)
