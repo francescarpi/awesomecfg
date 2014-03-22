@@ -5,8 +5,8 @@ Mi configuración de Awesome Window Manager.
 
 Me he basado en las configuraciones de: 
 
-https://github.com/romockee/powerarrow
-https://github.com/esn89/powerarrow-dark
+- https://github.com/romockee/powerarrow
+- https://github.com/esn89/powerarrow-dark
 
 Y partir de ahí he ido personalizando a mi gusto la configuración.
 
