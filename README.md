@@ -35,3 +35,10 @@ Nuevas funcionalidades
 - Al iniciar sesión arranco Dropbox.
 - Al pulsar Mod4 + F12, muestro un popup donde te deja escoger entre bloquear la pantalla, poner la máquina en reposo, reiniciar sistema o apagar.
 
+
+
+Capturas de pantalla
+--------------------
+
+![Captura de pantalla](screenshot.png)
+Format: ![Alt Text](url)
