@@ -13,6 +13,8 @@ Y partir de ahí he ido personalizando a mi gusto la configuración.
 Todas las modificaciones se pueden encontrar en internat, no son nada fuera de lo normal, pero he subido
 esta configuración con el objetivo de tener un backup de mi configuración de awesome.
 
+Mi versión de awesome, es **v.3.5.1**
+
 Instalación
 -----------
 
