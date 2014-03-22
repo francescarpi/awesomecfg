@@ -34,7 +34,7 @@ Nuevas funcionalidades
 - También se añade en este widget la funcionalidad de modificar el volumen con la rueda del ratón encima del widget.
 - Al iniciar sesión arranco Dropbox.
 - Al pulsar Mod4 + F12, muestro un popup donde te deja escoger entre bloquear la pantalla, poner la máquina en reposo, reiniciar sistema o apagar.
-
+- Varias aplicaciones arrancan en modo flotante, independiente del layout que tengamos. Como por ejemplo nautilus, el mixer de pulse, etc.
 
 
 Capturas de pantalla
