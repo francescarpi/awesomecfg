@@ -193,6 +193,18 @@ vicious.register(fswidget, vicious.widgets.fs,
 fsicon = wibox.widget.imagebox()
 fsicon:set_image(beautiful.fsicon)
 
+-- Widget de Brillo
+brilloicon = wibox.widget.imagebox()
+brilloicon:set_image(beautiful.brillicon)
+
+brillo = wibox.widget.textbox()
+vicious.register(brillo, vcontrib.brillo, '<span font="' .. font ..'" background="#313131">$1% </span>', 0.3)
+
+brillo:buttons(awful.util.table.join(
+    awful.button({ }, 4, function () vcontrib.brillo.add('inc', 5) end),
+    awful.button({ }, 5, function () vcontrib.brillo.add('dec', 5) end)
+))
+
 ----{{--| Volume / volume icon |----------
 volume = wibox.widget.textbox()
 vicious.register(volume, vicious.widgets.volume,
@@ -331,8 +343,9 @@ for s = 1, screen.count() do
     --right_layout:add(mytextclock)
     
     -- Aquí widets després de la data
-    -- right_layout:add(arr9)
-    -- right_layout:add(mailicon)
+    right_layout:add(arr9)
+    right_layout:add(brilloicon)
+    right_layout:add(brillo)
     right_layout:add(arr8)
     right_layout:add(memicon)
     right_layout:add(memwidget)
@@ -342,7 +355,6 @@ for s = 1, screen.count() do
     right_layout:add(arr6)
     right_layout:add(volumeicon)
     right_layout:add(volume)
-    --right_layout:add(pulse)
     right_layout:add(arr5)
     right_layout:add(fsicon)
     right_layout:add(fswidget)

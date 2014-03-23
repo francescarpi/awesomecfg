@@ -131,6 +131,8 @@ theme.mem = pathToConfig .. "powerarrowf/icons/mem.png"
 theme.mail = pathToConfig .. "powerarrowf/icons/mail.png"
 theme.mailopen = pathToConfig .. "powerarrowf/icons/mailopen.png"
 
+theme.brillicon = pathToConfig .. "powerarrowf/icons/brillo.png"
+
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.

@@ -26,6 +26,9 @@ En el terminal:
 - ``cd ~/.config/``
 - ``git clone https://github.com/francescarpi/awesomecfg.git awesome``
 
+Luego modificar la variable **pathToConfig** del fichero **theme.lua** del tema powerarrowf modificando
+vuestro path de usuario.
+
 ¡Reiniciar awesime y listo!
 
 Nuevas funcionalidades
