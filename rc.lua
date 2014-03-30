@@ -112,6 +112,12 @@ fecha_widget = wibox.widget.background()
 fecha_widget:set_widget(fecha_text)
 fecha_widget:set_bg('#6a450a')
 
+reloj_icon = wibox.widget.imagebox()
+reloj_icon:set_image(beautiful.reloj_icon)
+reloj_icon_widget = wibox.widget.background()
+reloj_icon_widget:set_widget(reloj_icon)
+reloj_icon_widget:set_bg('#6a450a')
+
 -- Bateria
 -- Muestra estado de la batería. Si hacemos clic sobre el texto, se
 -- actualiza
@@ -120,12 +126,18 @@ bateria_widget = wibox.widget.background()
 bateria_widget:set_widget(bateria_text)
 bateria_widget:set_bg('#3b6a0a')
 
+bateria_icon = wibox.widget.imagebox()
+bateria_icon:set_image(beautiful.bateria_icon)
+bateria_icon_widget = wibox.widget.background()
+bateria_icon_widget:set_widget(bateria_icon)
+bateria_icon_widget:set_bg('#3b6a0a')
+
 function actualiza_estado_bateria()
     local f = io.open("/sys/class/power_supply/BAT1/capacity")
     local estado = f:read("*all")
     f:close()
 
-    bateria_text:set_text(string.format(" Bat: %d%% ", estado))
+    bateria_text:set_text(string.format("%d%% ", estado))
 end
 
 actualiza_estado_bateria()
@@ -142,6 +154,12 @@ brillo_widget = wibox.widget.background()
 brillo_widget:set_widget(brillo_txt)
 brillo_widget:set_bg('#6a0a50')
 
+brillo_icon = wibox.widget.imagebox()
+brillo_icon:set_image(beautiful.brillo_icon)
+brillo_icon_widget = wibox.widget.background()
+brillo_icon_widget:set_widget(brillo_icon)
+brillo_icon_widget:set_bg('#6a0a50')
+
 function brillo_actual()
     local f = io.popen("xbacklight -get")
     local actual = f:read("*all")
@@ -151,7 +169,7 @@ end
 
 function actualiza_brillo()
     local actual = brillo_actual()
-    brillo_txt:set_text(string.format(" Brll: %d%% ", round(actual)))
+    brillo_txt:set_text(string.format(" %d%% ", round(actual)))
 end
 
 function subir_bajar_brillo(tipo)
@@ -179,6 +197,12 @@ volumen_widget = wibox.widget.background()
 volumen_widget:set_widget(volumen_text)
 volumen_widget:set_bg('#2c0a6a')
 
+volumen_icon = wibox.widget.imagebox()
+volumen_icon:set_image(beautiful.volumen_icon)
+volumen_icon_widget = wibox.widget.background()
+volumen_icon_widget:set_widget(volumen_icon)
+volumen_icon_widget:set_bg('#2c0a6a')
+
 function volumen_actual()
     local f = io.popen("amixer -M get Master")
     local datos = f:read("*all")
@@ -192,7 +216,7 @@ end
 function actualiza_volumen()
     local actual, mute = volumen_actual()
     if mute == 'on' then
-        volumen_text:set_text(string.format(" Vol: %d%% ", actual))
+        volumen_text:set_text(string.format(" %d%% ", actual))
     else
         volumen_text:set_text(" Vol: MUTE ")
     end
@@ -320,10 +344,18 @@ for s = 1, screen.count() do
       end
     end
 
+    right_layout:add(bateria_icon_widget)
     right_layout:add(bateria_widget)
+
+    right_layout:add(brillo_icon_widget)
     right_layout:add(brillo_widget)
+
+    right_layout:add(volumen_icon_widget)
     right_layout:add(volumen_widget)
+
+    right_layout:add(reloj_icon_widget)
     right_layout:add(fecha_widget)
+
     right_layout:add(mylayoutbox[s])
 
     -- Se coloca cada componente en el wibox

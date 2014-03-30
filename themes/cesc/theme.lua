@@ -44,4 +44,10 @@ theme.layout_tiletop = carpeta_tema .. "cesc/iconos/layouts/tiletopw.png"
 theme.layout_spiral  = carpeta_tema .. "cesc/iconos/layouts/spiralw.png"
 theme.layout_dwindle = carpeta_tema .. "cesc/iconos/layouts/dwindlew.png"
 
+-- Iconos de widgets
+theme.bateria_icon = carpeta_tema .. "cesc/iconos/widgets/bateria.png"
+theme.brillo_icon = carpeta_tema .. "cesc/iconos/widgets/brillo.png"
+theme.volumen_icon = carpeta_tema .. "cesc/iconos/widgets/volumen.png"
+theme.reloj_icon = carpeta_tema .. "cesc/iconos/widgets/reloj.png"
+
 return theme
