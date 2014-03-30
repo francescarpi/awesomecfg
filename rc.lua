@@ -253,6 +253,35 @@ volumen_widget:buttons(awful.util.table.join(
 ))
 -- Final volumen
 
+-- Wifi
+-- Indica si el wifi está acxtivado, o no.
+wifi_text = wibox.widget.textbox()
+wifi_widget = wibox.widget.background()
+wifi_widget:set_widget(wifi_text)
+wifi_widget:set_bg('#6a0a0a')
+
+function actualizar_wifi()
+    local f = io.popen("iwconfig wlp2s0")
+    local datos = f:read("*all")
+    f:close()
+
+    local essid = string.match(datos, 'ESSID[=:]"(.-)"')
+
+    if essid then
+        wifi_text:set_text(' ' .. essid .. ' ')
+    else
+        wifi_text:set_text(' NO WIFI ')
+    end
+end
+
+actualizar_wifi()
+
+wifi_widget:buttons(awful.util.table.join(
+    awful.button({ }, 1, function () actualizar_wifi() end)
+))
+
+-- Final wifi
+
 -- Menú de superior para cada tag...
 mywibox = {}
 mypromptbox = {}
@@ -352,6 +381,8 @@ for s = 1, screen.count() do
 
     right_layout:add(volumen_icon_widget)
     right_layout:add(volumen_widget)
+
+    right_layout:add(wifi_widget)
 
     right_layout:add(reloj_icon_widget)
     right_layout:add(fecha_widget)

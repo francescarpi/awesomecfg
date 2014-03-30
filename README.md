@@ -31,6 +31,7 @@ Nuevas funcionalidades
 - Widget de brillo. Subiendo o bajando la rueda del ratón encima, podemos subir o bajar el brillo de la pantalla. 
 - Widget de volumen. Subiendo o bajando la rueda del ratón encima del widget, sube o baja el volumen. Con el botón derecho se pasa de mute a sonido.
 - "Mod4 + a" encima de una ventana con el foco, la trae hacia delante.
+- Widget que indica el nombre de la wifi conectada
 
 Capturas de pantalla
 --------------------
