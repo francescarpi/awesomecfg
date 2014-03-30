@@ -107,31 +107,40 @@ function round(num, idp)
 end
 
 -- Hora
-mytextclock = awful.widget.textclock(' [%d/%m %H:%M]  ')
+fecha_text = awful.widget.textclock(' %d/%m %H:%M  ')
+fecha_widget = wibox.widget.background()
+fecha_widget:set_widget(fecha_text)
+fecha_widget:set_bg('#6a450a')
 
 -- Bateria
 -- Muestra estado de la batería. Si hacemos clic sobre el texto, se
 -- actualiza
-bateria = wibox.widget.textbox()
+bateria_text = wibox.widget.textbox()
+bateria_widget = wibox.widget.background()
+bateria_widget:set_widget(bateria_text)
+bateria_widget:set_bg('#3b6a0a')
 
 function actualiza_estado_bateria()
     local f = io.open("/sys/class/power_supply/BAT1/capacity")
     local estado = f:read("*all")
     f:close()
 
-    bateria:set_text(string.format(" [Bat: %d%%]", estado))
+    bateria_text:set_text(string.format(" Bat: %d%% ", estado))
 end
 
 actualiza_estado_bateria()
 
-bateria:buttons(awful.util.table.join(
+bateria_widget:buttons(awful.util.table.join(
     awful.button({ }, 1, function () actualiza_estado_bateria() end)
 ))
 -- Final widget bateria
 
 -- Brillo
 -- Muestra el porcentaje del brillo de la pantalla
-brillo = wibox.widget.textbox()
+brillo_txt = wibox.widget.textbox()
+brillo_widget = wibox.widget.background()
+brillo_widget:set_widget(brillo_txt)
+brillo_widget:set_bg('#6a0a50')
 
 function brillo_actual()
     local f = io.popen("xbacklight -get")
@@ -142,7 +151,7 @@ end
 
 function actualiza_brillo()
     local actual = brillo_actual()
-    brillo:set_text(string.format(" [Brll: %d%%]", round(actual)))
+    brillo_txt:set_text(string.format(" Brll: %d%% ", round(actual)))
 end
 
 function subir_bajar_brillo(tipo)
@@ -157,7 +166,7 @@ end
 
 actualiza_brillo()
 
-brillo:buttons(awful.util.table.join(
+brillo_widget:buttons(awful.util.table.join(
     awful.button({ }, 4, function () subir_bajar_brillo('inc') end),
     awful.button({ }, 5, function () subir_bajar_brillo('dec') end)
 ))
@@ -165,7 +174,10 @@ brillo:buttons(awful.util.table.join(
 
 -- Volumen
 -- Indicamos porcentaje de volumen
-volumen = wibox.widget.textbox()
+volumen_text = wibox.widget.textbox()
+volumen_widget = wibox.widget.background()
+volumen_widget:set_widget(volumen_text)
+volumen_widget:set_bg('#2c0a6a')
 
 function volumen_actual()
     local f = io.popen("amixer -M get Master")
@@ -180,9 +192,9 @@ end
 function actualiza_volumen()
     local actual, mute = volumen_actual()
     if mute == 'on' then
-        volumen:set_text(string.format(" [Vol: %d%%]", actual))
+        volumen_text:set_text(string.format(" Vol: %d%% ", actual))
     else
-        volumen:set_text(" [Vol: MUTE]")
+        volumen_text:set_text(" Vol: MUTE ")
     end
 end
 
@@ -209,7 +221,7 @@ end
 
 actualiza_volumen()
 
-volumen:buttons(awful.util.table.join(
+volumen_widget:buttons(awful.util.table.join(
     awful.button({ }, 1, function () actualiza_volumen() end),
     awful.button({ }, 3, function () toggle_volumen() end),
     awful.button({ }, 4, function () subir_bajar_volumen('inc') end),
@@ -308,10 +320,10 @@ for s = 1, screen.count() do
       end
     end
 
-    right_layout:add(bateria)
-    right_layout:add(brillo)
-    right_layout:add(volumen)
-    right_layout:add(mytextclock)
+    right_layout:add(bateria_widget)
+    right_layout:add(brillo_widget)
+    right_layout:add(volumen_widget)
+    right_layout:add(fecha_widget)
     right_layout:add(mylayoutbox[s])
 
     -- Se coloca cada componente en el wibox
