@@ -29,6 +29,7 @@ Nuevas funcionalidades
 
 - Widget que muestra el estado de la batería. Se actualiza al hacer clic encima
 - Widget de brillo. Subiendo o bajando la rueda del ratón encima, podemos subir o bajar el brillo de la pantalla. 
+- Widget de volumen. Subiendo o bajando la rueda del ratón encima del widget, sube o baja el volumen. Con el botón derecho se pasa de mute a sonido.
 
 Capturas de pantalla
 --------------------

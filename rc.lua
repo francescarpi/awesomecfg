@@ -107,7 +107,7 @@ function round(num, idp)
 end
 
 -- Hora
-mytextclock = awful.widget.textclock(' %d/%m %H:%M ')
+mytextclock = awful.widget.textclock(' [%d/%m %H:%M]  ')
 
 -- Bateria
 -- Muestra estado de la batería. Si hacemos clic sobre el texto, se
@@ -145,11 +145,11 @@ function actualiza_brillo()
     brillo:set_text(string.format(" [Brll: %d%%]", round(actual)))
 end
 
-function sube_baja_brillo(porcent, tipo)
+function subir_bajar_brillo(tipo)
     local actual = brillo_actual()
 
     if tipo == 'inc' or (tipo == 'dec' and actual > 15) then
-        local cmd = string.format("xbacklight -%s  %d", tipo, porcent)
+        local cmd = string.format("xbacklight -%s 5", tipo)
         os.execute(cmd)
     end
     actualiza_brillo()
@@ -158,12 +158,64 @@ end
 actualiza_brillo()
 
 brillo:buttons(awful.util.table.join(
-    awful.button({ }, 4, function () sube_baja_brillo(5, 'inc') end),
-    awful.button({ }, 5, function () sube_baja_brillo(5, 'dec') end)
+    awful.button({ }, 4, function () subir_bajar_brillo('inc') end),
+    awful.button({ }, 5, function () subir_bajar_brillo('dec') end)
 ))
-
 -- Final brillo
 
+-- Volumen
+-- Indicamos porcentaje de volumen
+volumen = wibox.widget.textbox()
+
+function volumen_actual()
+    local f = io.popen("amixer -M get Master")
+    local datos = f:read("*all")
+    f:close()
+
+    local volumen, mute = string.match(datos, "([%d]+)%%.*%[([%l]*)")
+
+    return volumen, mute
+end
+
+function actualiza_volumen()
+    local actual, mute = volumen_actual()
+    if mute == 'on' then
+        volumen:set_text(string.format(" [Vol: %d%%]", actual))
+    else
+        volumen:set_text(" [Vol: MUTE]")
+    end
+end
+
+function subir_bajar_volumen(tipo)
+    if tipo == 'inc' then
+        signo = '+'
+    else
+        signo = '-'
+    end
+
+    local cmd = string.format("amixer set Master 1%%%s", signo)
+    os.execute(cmd)
+
+    actualiza_volumen()
+end
+
+function toggle_volumen()
+    -- Pasa de mute a no mute
+    local cmd = string.format("amixer set Master toggle")
+    os.execute(cmd)
+
+    actualiza_volumen()
+end
+
+actualiza_volumen()
+
+volumen:buttons(awful.util.table.join(
+    awful.button({ }, 1, function () actualiza_volumen() end),
+    awful.button({ }, 3, function () toggle_volumen() end),
+    awful.button({ }, 4, function () subir_bajar_volumen('inc') end),
+    awful.button({ }, 5, function () subir_bajar_volumen('dec') end)
+))
+-- Final volumen
 
 -- Menú de superior para cada tag...
 mywibox = {}
@@ -258,6 +310,7 @@ for s = 1, screen.count() do
 
     right_layout:add(bateria)
     right_layout:add(brillo)
+    right_layout:add(volumen)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
