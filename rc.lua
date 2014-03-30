@@ -1,28 +1,29 @@
--- Standard awesome library
+-- Configuración Cesc
 local gears = require("gears")
+
 local awful = require("awful")
 awful.rules = require("awful.rules")
+
 require("awful.autofocus")
--- Widget and layout library
+
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local vicious = require("vicious")
-local vcontrib = require("vicious.contrib")
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
+local io = { open = io.open, popen = io.popen }
+local tonumber = tonumber
+
+-- Si al arrancar hay un error...
 if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
+    naughty.notify({
+        preset = naughty.config.presets.critical,
+        title = "¡Vaya, ya te has cargado algo!",
+        text = awesome.startup_errors
+    })
 end
 
--- Handle runtime errors after startup
+-- Handle que notifica de errores una vez ha arrancado todo...
 do
     local in_error = false
     awesome.connect_signal("debug::error", function (err)
@@ -30,347 +31,237 @@ do
         if in_error then return end
         in_error = true
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = err })
+        naughty.notify({
+            preset = naughty.config.presets.critical,
+            title = "¡Mira que eres manazas, eh!",
+            text = err
+        })
         in_error = false
     end)
 end
--- }}}
 
--- {{{ Variable definitions
--- Themes define colours, icons, and wallpapers
---beautiful.init("/home/farpi/.config/awesome/themes/default/theme.lua")
-beautiful.init("/home/farpi/.config/awesome/themes/powerarrowf/theme.lua")
+-- Cargamos tema visual i wallpapers...
+beautiful.init("/home/farpi/.config/awesome/themes/cesc/theme.lua")
 
-
--- This is used later as the default terminal and editor to run.
-terminal = "terminator"
-editor = os.getenv("EDITOR") or "vim"
-editor_cmd = terminal .. " -e " .. editor
-
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
-
--- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts =
-{
-    awful.layout.suit.floating,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.right,
-
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
-
-}
--- }}}
-
--- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
         gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     end
 end
--- }}}
 
--- {{{ Tags
--- Define a tag table which hold all screen tags.
+-- Definición del terminal, editor y tecla de disparo principal...
+terminal = "terminator"
+editor = os.getenv("EDITOR") or "vim"
+editor_cmd = terminal .. " -e " .. editor
+modkey = "Mod4"
+
+-- Layouts activados
+local layouts = {
+    awful.layout.suit.floating,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.right,
+}
+
+-- Número de tags o escritorio para cada monitor. Distingo si sólo tengo un monitor,
+-- es decir sólo el portátil, o portátil con pantalla externa
 tags = {}
 
 if screen.count() == 1 then
     tags[1] = awful.tag({ 1, 2, 3, 4, 5 }, 1, layouts[2])
 else
-    tags[1] = awful.tag({ 1, 2, 3 }, 1, { layouts[1], layouts[3], layouts[2] })
-    tags[2] = awful.tag({ 1, 2, 3 }, 2, { layouts[2], layouts[2], layouts[2] })
+    tags[2] = awful.tag({ 1, 2, 3 }, 2, { layouts[1], layouts[3], layouts[2] })
+    tags[1] = awful.tag({ 1, 2, 3, 4, 5 }, 1, layouts[2])
 end
 
--- }}}
-
--- {{{ Menu
--- Create a laucher widget and a main menu
+-- Opciones del menú...
 myawesomemenu = {
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
+   { "Reiniciar", awesome.restart },
+   { "Salir", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+sistemamenu = {
+    {"Bloquear", terminal .. " -e slock"},
+    {"Suspender", terminal .. " -e beesu pm-suspend"},
+    {"Apagar", terminal .. " -e shutdown -h now"},
+    {"Reiniciar", terminal .. " -e shutdown -r now"}
+}
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
+mymainmenu = awful.menu({
+    items = {
+        {"Awesome", myawesomemenu, beautiful.awesome_icon},
+        {"Sistema", sistemamenu, beautiful.sistema_icon},
+    }
+})
 
-font = "Inconsolata 11"
+mylauncher = awful.widget.launcher({
+    image = beautiful.awesome_icon,
+    menu = mymainmenu
+})
 
--- {{ These are the power arrow dividers/separators }} --
-arr1 = wibox.widget.imagebox()
-arr1:set_image(beautiful.arr1)
-arr2 = wibox.widget.imagebox()
-arr2:set_image(beautiful.arr2)
-arr3 = wibox.widget.imagebox()
-arr3:set_image(beautiful.arr3)
-arr4 = wibox.widget.imagebox()
-arr4:set_image(beautiful.arr4)
-arr5 = wibox.widget.imagebox()
-arr5:set_image(beautiful.arr5)
-arr6 = wibox.widget.imagebox()
-arr6:set_image(beautiful.arr6)
-arr7 = wibox.widget.imagebox()
-arr7:set_image(beautiful.arr7)
-arr8 = wibox.widget.imagebox()
-arr8:set_image(beautiful.arr8)
-arr9 = wibox.widget.imagebox()
-arr9:set_image(beautiful.arr9)
+menubar.utils.terminal = terminal 
 
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
+-- Widgets
+function round(num, idp)
+  return tonumber(string.format("%." .. (idp or 0) .. "f", num))
+end
 
--- {{{ Wibox
---{{-- Time and Date Widget }} --
-tdwidget = wibox.widget.textbox()
-local strf = '<span font="' .. font .. '" color="#EEEEEE" background="#777E76">%H:%M %d/%m </span>'
-vicious.register(tdwidget, vicious.widgets.date, strf, 20)
+-- Hora
+mytextclock = awful.widget.textclock(' %d/%m %H:%M ')
 
-clockicon = wibox.widget.imagebox()
-clockicon:set_image(beautiful.clock)
+-- Bateria
+-- Muestra estado de la batería. Si hacemos clic sobre el texto, se
+-- actualiza
+bateria = wibox.widget.textbox()
 
---{{ Net Widget }} --
-netwidget = wibox.widget.textbox()
-vicious.register(netwidget, vicious.widgets.net, function(widget, args)
-    local interface = ""
-    if args["{wlp2s0 carrier}"] == 1 then
-        interface = "wlp2s0"
-    elseif args["{enp0s25 carrier}"] == 1 then
-        interface = "enp0s25"
-    else
-        return ""
-    end
-    return '<span background="#C2C2A4" font="' .. font ..'"> <span font ="' ..font ..'" color="#FFFFFF">'..args["{"..interface.." down_kb}"]..'kbps'..'</span></span>' end, 10)
+function actualiza_estado_bateria()
+    local f = io.open("/sys/class/power_supply/BAT1/capacity")
+    local estado = f:read("*all")
+    f:close()
 
----{{---| Wifi Signal Widget |-------
-neticon = wibox.widget.imagebox()
-vicious.register(neticon, vicious.widgets.wifi, function(widget, args)
-    local sigstrength = tonumber(args["{link}"])
-    if sigstrength > 69 then
-        neticon:set_image(beautiful.nethigh)
-    elseif sigstrength > 40 and sigstrength < 70 then
-        neticon:set_image(beautiful.netmedium)
-    else
-        neticon:set_image(beautiful.netlow)
-    end
-end, 120, 'wlp2s0')
+    bateria:set_text(string.format(" [Bat: %d%%]", estado))
+end
 
+actualiza_estado_bateria()
 
---{{ Battery Widget }} --
-baticon = wibox.widget.imagebox()
-baticon:set_image(beautiful.baticon)
+bateria:buttons(awful.util.table.join(
+    awful.button({ }, 1, function () actualiza_estado_bateria() end)
+))
+-- Final widget bateria
 
-batwidget = wibox.widget.textbox()
-vicious.register( batwidget, vicious.widgets.bat, '<span background="#92B0A0" font="' .. font ..'"><span font="' ..font ..'" color="#FFFFFF" background="#92B0A0">$1$2% </span></span>', 30, "BAT1" )
-
-
---{{---| File Size widget |-----
-fswidget = wibox.widget.textbox()
-
-vicious.register(fswidget, vicious.widgets.fs,
-'<span background="#D0785D" font="' .. font .. '"> <span font="' .. font ..'" color="#EEEEEE">${/home used_gb}/${/home avail_gb} GB </span></span>', 
-800)
-
-fsicon = wibox.widget.imagebox()
-fsicon:set_image(beautiful.fsicon)
-
--- Widget de Brillo
-brilloicon = wibox.widget.imagebox()
-brilloicon:set_image(beautiful.brillicon)
-
+-- Brillo
+-- Muestra el porcentaje del brillo de la pantalla
 brillo = wibox.widget.textbox()
-vicious.register(brillo, vcontrib.brillo, '<span font="' .. font ..'" background="#313131">$1% </span>', 0.3)
+
+function brillo_actual()
+    local f = io.popen("xbacklight -get")
+    local actual = f:read("*all")
+    f:close()
+    return tonumber(actual)
+end
+
+function actualiza_brillo()
+    local actual = brillo_actual()
+    brillo:set_text(string.format(" [Brll: %d%%]", round(actual)))
+end
+
+function sube_baja_brillo(porcent, tipo)
+    local actual = brillo_actual()
+
+    if tipo == 'inc' or (tipo == 'dec' and actual > 15) then
+        local cmd = string.format("xbacklight -%s  %d", tipo, porcent)
+        os.execute(cmd)
+    end
+    actualiza_brillo()
+end
+
+actualiza_brillo()
 
 brillo:buttons(awful.util.table.join(
-    awful.button({ }, 4, function () vcontrib.brillo.add('inc', 5) end),
-    awful.button({ }, 5, function () vcontrib.brillo.add('dec', 5) end)
+    awful.button({ }, 4, function () sube_baja_brillo(5, 'inc') end),
+    awful.button({ }, 5, function () sube_baja_brillo(5, 'dec') end)
 ))
 
-----{{--| Volume / volume icon |----------
-volume = wibox.widget.textbox()
-vicious.register(volume, vicious.widgets.volume,
-'<span background="#4B3B51" font="' .. font .. '"><span font="' .. font ..'" color="#EEEEEE"> Vol:$1 </span></span>', 0.3, "Master")
+-- Final brillo
 
-volumeicon = wibox.widget.imagebox()
-vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
-    local paraone = tonumber(args[1])
 
-    if args[2] == "♩" or paraone == 0 then
-        volumeicon:set_image(beautiful.mute)
-    elseif paraone >= 67 and paraone <= 100 then
-        volumeicon:set_image(beautiful.volhi)
-    elseif paraone >= 33 and paraone <= 66 then
-        volumeicon:set_image(beautiful.volmed)
-    else
-        volumeicon:set_image(beautiful.vollow)
-    end
-
-end, 0.3, "Master")
-
-volume:buttons(awful.util.table.join(
-    awful.button({ }, 1, function () awful.util.spawn("pavucontrol") end),
-    awful.button({ }, 4, function () vcontrib.pulse.add(5,"alsa_output.pci-0000_00_1b.0.analog-stereo") end),
-    awful.button({ }, 5, function () vcontrib.pulse.add(-5,"alsa_output.pci-0000_00_1b.0.analog-stereo") end)
-))
-
---{{---| CPU / sensors widget |-----------
-cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu,
-'<span background="#4B696D" font="' .. font .. '"> <span font="' .. font ..'" color="#DDDDDD">$2%<span color="#888888">·</span>$3% </span></span>', 5)
-
-cpuicon = wibox.widget.imagebox()
-cpuicon:set_image(beautiful.cpuicon)
-
---{{--| MEM widget |-----------------
-memwidget = wibox.widget.textbox()
-
-vicious.register(memwidget, vicious.widgets.mem, '<span background="#777E76" font="' .. font ..'"> <span font="' .. font .. '" color="#EEEEEE" background="#777E76">$2MB </span></span>', 20)
-memicon = wibox.widget.imagebox()
-memicon:set_image(beautiful.mem)
-
---{{--| Mail widget |---------
--- mailicon = wibox.widget.imagebox()
-
--- vicious.register(mailicon, vicious.widgets.gmail, function(widget, args)
---     local newMail = tonumber(args["{count}"])
---     if newMail > 0 then
---         mailicon:set_image(beautiful.mail)
---     else
---         mailicon:set_image(beautiful.mailopen)
---     end
--- end, 15)
-
--- -- to make GMail pop up when pressed:
--- mailicon:buttons(awful.util.table.join(awful.button({ }, 1,
--- function () awful.util.spawn_with_shell(browser .. " gmail.com") end)))
-
--- Create a wibox for each screen and add it
+-- Menú de superior para cada tag...
 mywibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
-                    )
+    awful.button({ }, 1, awful.tag.viewonly),
+    awful.button({ modkey }, 1, awful.client.movetotag),
+    awful.button({ }, 3, awful.tag.viewtoggle),
+    awful.button({ modkey }, 3, awful.client.toggletag),
+    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
+    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
+)
 mytasklist = {}
+
+-- Comportamiento del ratón...
 mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({ width=250 })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
+    awful.button({ }, 1, function (c)
+                          if c == client.focus then
+                              c.minimized = true
+                          else
+                              -- Without this, the following
+                              -- :isvisible() makes no sense
+                              c.minimized = false
+                              if not c:isvisible() then
+                                  awful.tag.viewonly(c:tags()[1])
+                              end
+                              -- This will also un-minimize
+                              -- the client, if needed
+                              client.focus = c
+                              c:raise()
+                          end
+                      end),
+    awful.button({ }, 3, function ()
+                          if instance then
+                              instance:hide()
+                              instance = nil
+                          else
+                              instance = awful.menu.clients({ width=250 })
+                          end
+                      end),
+    awful.button({ }, 4, function ()
+                          awful.client.focus.byidx(1)
+                          if client.focus then client.focus:raise() end
+                      end),
+    awful.button({ }, 5, function ()
+                          awful.client.focus.byidx(-1)
+                          if client.focus then client.focus:raise() end
+                      end)
+)
 
 for s = 1, screen.count() do
-    -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
                            awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
-    -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+    
+    -- Creación de la lista de tags o escritorios..
+    mytaglist[s] = awful.widget.taglist(s,
+        awful.widget.taglist.filter.all,
+        mytaglist.buttons)
 
-    -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+    -- Lista de aplicaciones abiertas
+    mytasklist[s] = awful.widget.tasklist(s,
+        awful.widget.tasklist.filter.currenttags,
+        mytasklist.buttons)
 
-    -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s, height = "16" })
+    -- Creación del wibox, o menú superior...
+    mywibox[s] = awful.wibox({ position = "top", screen = s})
 
-    -- Widgets that are aligned to the left
+    -- Widgets alineados a la izquierda
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
 
-    -- Widgets that are aligned to the right
+    -- Widgets alineados a la derecha
     local right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
-    --right_layout:add(mytextclock)
-    
-    -- Aquí widets després de la data
-    right_layout:add(arr9)
-    right_layout:add(brilloicon)
+
+    -- El widget de iconos del sistema sólo lo añadimos a un monitor
+    if screen.count() == 1 then
+      right_layout:add(wibox.widget.systray())
+    else
+      if s == 2 then
+        right_layout:add(wibox.widget.systray())
+      end
+    end
+
+    right_layout:add(bateria)
     right_layout:add(brillo)
-    right_layout:add(arr8)
-    right_layout:add(memicon)
-    right_layout:add(memwidget)
-    right_layout:add(arr7)
-    right_layout:add(cpuicon)
-    right_layout:add(cpuwidget)
-    right_layout:add(arr6)
-    right_layout:add(volumeicon)
-    right_layout:add(volume)
-    right_layout:add(arr5)
-    right_layout:add(fsicon)
-    right_layout:add(fswidget)
-    right_layout:add(arr4)
-    right_layout:add(baticon)
-    right_layout:add(batwidget)
-    right_layout:add(arr3)
-    right_layout:add(neticon)
-    right_layout:add(netwidget)
-    right_layout:add(arr2)
-    right_layout:add(clockicon)
-    right_layout:add(tdwidget)
-    right_layout:add(arr1)
+    right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
-    -- Now bring it all together (with the tasklist in the middle)
+    -- Se coloca cada componente en el wibox
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
     layout:set_middle(mytasklist[s])
@@ -447,10 +338,13 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end),
+    awful.key({ modkey }, "p", function() menubar.show() end)
 
-    -- Activar lock
-    awful.key({ modkey }, "F12", function () awful.util.spawn("/home/farpi/.config/awesome/scripts/shutdown.sh") end)
+    -- awful.key({ modkey }, "d",
+    --     function()
+    --         prova.text = "hola"
+    --     end)
+
 )
 
 clientkeys = awful.util.table.join(
@@ -470,6 +364,13 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
+        end),
+
+    -- Al  pulsar modkoey + a, devuelve el foco a la ventana que tengamos debajo
+    -- del ratón
+    awful.key({ modkey }, "a",
+        function(c)
+            c:raise()
         end)
 )
 
@@ -519,17 +420,16 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 
--- {{{ Rules
+-- Reglas de aplicaciones...
 awful.rules.rules = {
-    -- All clients will match this rule.
+    -- Todas las aplicaciones
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
+    -- Aplicaciones específicas
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
@@ -540,11 +440,7 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { instance = "nautilus" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
--- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -620,8 +516,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 --
 
--- Afegit Cesc
--- Autorun programs
+-- Arrancar en el inicio...
 autorun = true
 autorunApps = 
 { 

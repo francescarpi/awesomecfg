@@ -3,15 +3,8 @@ awesomecfg
 
 Mi configuración de Awesome Window Manager.
 
-Me he basado en las configuraciones de: 
-
-- https://github.com/romockee/powerarrow
-- https://github.com/esn89/powerarrow-dark
-
-Y partir de ahí he ido personalizando a mi gusto la configuración.
-
-Todas las modificaciones se pueden encontrar en internat, no son nada fuera de lo normal, pero he subido
-esta configuración con el objetivo de tener un backup de mi configuración de awesome.
+Es una configuración bastante senzilla, pero la intención es tener una copia de seguridad de mi configuración.
+La tengo personalizada a mi gusto.
 
 Mi versión de awesome, es **v.3.5.1**
 
@@ -26,7 +19,7 @@ En el terminal:
 - ``cd ~/.config/``
 - ``git clone https://github.com/francescarpi/awesomecfg.git awesome``
 
-Luego modificar la variable **pathToConfig** del fichero **theme.lua** del tema powerarrowf modificando
+Luego modificar la variable **carpeta_tema** del fichero **theme.lua** del tema **cesc** modificando
 vuestro path de usuario.
 
 ¡Reiniciar awesime y listo!
@@ -34,14 +27,8 @@ vuestro path de usuario.
 Nuevas funcionalidades
 ----------------------
 
-- Se utiliza el theme de powerarrow, más algunos widgets en la barra superior.
-- Widgets activados: memoria ram, cpu, volumen, disco, nivel de batería, estado de la wifi y hora
-- En el widget de volumen se añade la funcionalidad que al hacer click te abre el mixer de pulse.
-- También se añade en este widget la funcionalidad de modificar el volumen con la rueda del ratón encima del widget.
-- Al iniciar sesión arranco Dropbox.
-- Al pulsar Mod4 + F12, muestro un popup donde te deja escoger entre bloquear la pantalla, poner la máquina en reposo, reiniciar sistema o apagar.
-- Varias aplicaciones arrancan en modo flotante, independiente del layout que tengamos. Como por ejemplo nautilus, el mixer de pulse, etc.
-
+- Widget que muestra el estado de la batería. Se actualiza al hacer clic encima
+- Widget de brillo. Subiendo o bajando la rueda del ratón encima, podemos subir o bajar el brillo de la pantalla. 
 
 Capturas de pantalla
 --------------------
