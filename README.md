@@ -6,7 +6,7 @@ Mi configuración de Awesome Window Manager.
 Es una configuración bastante senzilla, pero la intención es tener una copia de seguridad de mi configuración.
 La tengo personalizada a mi gusto.
 
-Mi versión de awesome, es **v.3.5.1**
+Mi versión de awesome, es **v.3.5.3**
 
 Instalación
 -----------
@@ -32,6 +32,7 @@ Nuevas funcionalidades
 - Widget de volumen. Subiendo o bajando la rueda del ratón encima del widget, sube o baja el volumen. Con el botón derecho se pasa de mute a sonido.
 - "Mod4 + a" encima de una ventana con el foco, la trae hacia delante.
 - Widget que indica el nombre de la wifi conectada
+- Al hacer clic sobre el widget del reloj, se abre el gnome-control-center
 
 Capturas de pantalla
 --------------------
