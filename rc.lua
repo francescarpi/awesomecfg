@@ -118,6 +118,10 @@ reloj_icon_widget = wibox.widget.background()
 reloj_icon_widget:set_widget(reloj_icon)
 reloj_icon_widget:set_bg('#6a450a')
 
+fecha_widget:buttons(awful.util.table.join(
+    awful.button({ }, 1, function () awful.util.spawn('gnome-control-center') end)
+))
+
 -- Bateria
 -- Muestra estado de la batería. Si hacemos clic sobre el texto, se
 -- actualiza
@@ -218,7 +222,7 @@ function actualiza_volumen()
     if mute == 'on' then
         volumen_text:set_text(string.format(" %d%% ", actual))
     else
-        volumen_text:set_text(" Vol: MUTE ")
+        volumen_text:set_text(" MUTE ")
     end
 end
 
