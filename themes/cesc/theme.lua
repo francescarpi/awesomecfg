@@ -19,7 +19,7 @@ theme.fg_minimize = "#ffffff"
 
 theme.border_width = 4
 theme.border_normal = "#000000"
-theme.border_focus = "#4e8540"
+theme.border_focus = "#f30c32"
 theme.border_marked = "#91231c"
 
 -- Definición de iconos

@@ -70,7 +70,7 @@ tags = {}
 if screen.count() == 1 then
     tags[1] = awful.tag({ 1, 2, 3, 4, 5 }, 1, layouts[2])
 else
-    tags[2] = awful.tag({ 1, 2, 3 }, 2, { layouts[1], layouts[3], layouts[2] })
+    tags[2] = awful.tag({ 1, 2, 3, 4, 5}, 2, layouts[3])
     tags[1] = awful.tag({ 1, 2, 3, 4, 5 }, 1, layouts[2])
 end
 
@@ -410,6 +410,7 @@ root.buttons(awful.util.table.join(
     awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
+
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
