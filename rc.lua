@@ -176,21 +176,31 @@ function actualiza_brillo()
     brillo_txt:set_text(string.format(" %d%% ", round(actual)))
 end
 
-function subir_bajar_brillo(tipo)
-    local actual = brillo_actual()
-
-    if tipo == 'inc' or (tipo == 'dec' and actual > 15) then
-        local cmd = string.format("xbacklight -%s 5", tipo)
-        os.execute(cmd)
-    end
-    actualiza_brillo()
+function modifica_brillo()
+   local actual = round(brillo_actual())
+   
+   if actual == 15 then
+      local cmd = string.format("xbacklight -set 50")
+      os.execute(cmd)
+      actualiza_brillo()
+   else
+      if actual == 50 then
+	 local cmd = string.format("xbacklight -set 100")
+	 os.execute(cmd)
+	 actualiza_brillo()
+      else
+	 local cmd = string.format("xbacklight -set 15")
+	 os.execute(cmd)
+	 actualiza_brillo()
+      end
+   end
+    
 end
 
 actualiza_brillo()
 
 brillo_widget:buttons(awful.util.table.join(
-    awful.button({ }, 4, function () subir_bajar_brillo('inc') end),
-    awful.button({ }, 5, function () subir_bajar_brillo('dec') end)
+    awful.button({ }, 1, function () modifica_brillo() end)
 ))
 -- Final brillo
 
