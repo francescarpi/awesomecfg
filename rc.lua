@@ -583,6 +583,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { instance = "nautilus" },
       properties = { floating = true } },
+    { rule = { instance = "nemo" },
+      properties = { floating = true } },
 }
 
 -- {{{ Signals
