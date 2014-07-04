@@ -40,6 +40,16 @@ do
     end)
 end
 
+if screen.count() == 2 then
+   naughty.config.defaults.screen = 2
+end
+naughty.config.defaults.border_color = "#ff0000"
+naughty.config.defaults.border_width = 2
+naughty.config.defaults.bg = "#ff0000"
+naughty.config.defaults.fg = "#ffffff"
+naughty.config.defaults.position = "top_left"
+naughty.config.defaults.font = "Arial 18"
+
 -- Cargamos tema visual i wallpapers...
 beautiful.init("/home/farpi/.config/awesome/themes/cesc/theme.lua")
 
@@ -50,6 +60,7 @@ if beautiful.wallpaper then
 end
 
 -- Definición del terminal, editor y tecla de disparo principal...
+--terminal = "terminology"
 terminal = "terminator"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
@@ -61,6 +72,7 @@ local layouts = {
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.right,
+    awful.layout.suit.max.fullscreen,
 }
 
 -- Número de tags o escritorio para cada monitor. Distingo si sólo tengo un monitor,
@@ -279,12 +291,16 @@ function actualizar_wifi()
     local datos = f:read("*all")
     f:close()
 
+    local miipf = io.popen("ifconfig p8p1 | grep inet | grep -v inet6 | awk '{ print $2 }'")
+    local miip = miipf:read("*all")
+    miipf.close()
+
     local essid = string.match(datos, 'ESSID[=:]"(.-)"')
 
     if essid then
         wifi_text:set_text(' ' .. essid .. ' ')
     else
-        wifi_text:set_text(' NO WIFI ')
+       wifi_text:set_text(' NW ' .. miip .. ' ')
     end
 end
 
@@ -454,6 +470,7 @@ globalkeys = awful.util.table.join(
             end
         end),
 
+
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -581,10 +598,10 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { instance = "yad" },
       properties = { floating = true } },
-    { rule = { instance = "nautilus" },
-      properties = { floating = true } },
-    { rule = { instance = "nemo" },
-      properties = { floating = true } },
+    --{ rule = { instance = "nautilus" },
+    --  properties = { floating = true } },
+    --{ rule = { instance = "nemo" },
+    --  properties = { floating = true } },
 }
 
 -- {{{ Signals
@@ -665,10 +682,12 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 autorun = true
 autorunApps = 
 { 
-   "dropbox start"
+   "dropbox start",
+   "owncloud",
 }
 if autorun then
    for app = 1, #autorunApps do
        awful.util.spawn(autorunApps[app])
    end
 end
+

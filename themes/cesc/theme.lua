@@ -17,9 +17,9 @@ theme.fg_focus = "#ffffff"
 theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
-theme.border_width = 1
+theme.border_width = 4
 theme.border_normal = "#000000"
-theme.border_focus = "#ffffff"
+theme.border_focus = "#ff0202"
 theme.border_marked = "#91231c"
 
 -- Definición de iconos
