@@ -12,7 +12,7 @@ spotify_widget = wibox.layout {
         right = 5,
         {
             widget = wibox.widget.imagebox,
-            image = cfg_path .. "spotify/spotify.png",
+            image = cfg_path .. "widgets/spotify/spotify.png",
             forced_width = 13
         }
     }

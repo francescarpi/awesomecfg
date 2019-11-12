@@ -39,14 +39,14 @@ local function update_value()
     if string.find(onoff, "on", 1, true) then
         text:set_text(" " .. value .. "% ")
         if value >= 0 and value <= 25 then
-            icon:set_image(cfg_path.."volume/audio-volume-low.png")
+            icon:set_image(cfg_path.."widgets/volume/audio-volume-low.png")
         elseif value > 25 and value <= 75 then
-            icon:set_image(cfg_path.."volume/audio-volume-medium.png")
+            icon:set_image(cfg_path.."widgets/volume/audio-volume-medium.png")
         elseif value> 75 then
-            icon:set_image(cfg_path.."volume/audio-volume-high.png")
+            icon:set_image(cfg_path.."widgets/volume/audio-volume-high.png")
         end
     else
-        icon:set_image(cfg_path.."volume/audio-volume-muted.png")
+        icon:set_image(cfg_path.."widgets/volume/audio-volume-muted.png")
         text:set_markup_silently(" <span color=\"" .. beautiful.bg_urgent .. "\">M</span> ")
     end
 end
@@ -63,14 +63,14 @@ awful.widget.watch(
         if string.find(onoff, "on", 1, true) then
             text:set_text(" " .. value .. "% ")
             if value >= 0 and value <= 25 then
-                icon:set_image(cfg_path.."volume/audio-volume-low.png")
+                icon:set_image(cfg_path.."widgets/volume/audio-volume-low.png")
             elseif value > 25 and value <= 75 then
-                icon:set_image(cfg_path.."volume/audio-volume-medium.png")
+                icon:set_image(cfg_path.."widgets/volume/audio-volume-medium.png")
             elseif value> 75 then
-                icon:set_image(cfg_path.."volume/audio-volume-high.png")
+                icon:set_image(cfg_path.."widgets/volume/audio-volume-high.png")
             end
         else
-            icon:set_image(cfg_path.."volume/audio-volume-muted.png")
+            icon:set_image(cfg_path.."widgets/volume/audio-volume-muted.png")
             text:set_markup_silently(" <span color=\"" .. beautiful.bg_urgent .. "\">M</span> ")
         end
     end,
