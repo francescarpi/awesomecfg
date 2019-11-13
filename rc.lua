@@ -1,17 +1,16 @@
 --------------------------------------------------------------------------------
 -- Imports
 --------------------------------------------------------------------------------
-local gears         = require("gears")
-local awful         = require("awful")
-local wibox         = require("wibox")
-local beautiful     = require("beautiful")
-local naughty       = require("naughty")
-local menubar       = require("menubar")
+local gears = require("gears")
+local awful = require("awful")
+local wibox = require("wibox")
+local beautiful = require("beautiful")
+local naughty = require("naughty")
+local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
+-- Seting default layout
 awful.util.spawn("setxkbmap -layout es")
-
-home = os.getenv("HOME")
 
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys.vim")
@@ -61,10 +60,10 @@ require("widgets.touchpad.touchpad")
 --------------------------------------------------------------------------------
 -- Terminal, Editor, ModKey...
 --------------------------------------------------------------------------------
-terminal    = "sakura"
-editor      = os.getenv("EDITOR") or "vim"
-editor_cmd  = terminal .. " -e " .. editor
-modkey      = "Mod4"
+terminal = "sakura"
+editor = os.getenv("EDITOR") or "vim"
+editor_cmd = terminal .. " -e " .. editor
+modkey = "Mod4"
 
 --------------------------------------------------------------------------------
 -- Layouts
