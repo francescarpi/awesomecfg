@@ -32,7 +32,7 @@ theme.menu_submenu_icon     = themes_path.."theme/submenu.png"
 theme.menu_height           = dpi(15)
 theme.menu_width            = dpi(100)
 
-theme.wallpaper             = themes_path.."theme/background.png"
+theme.wallpaper             = themes_path.."theme/background.jpg"
 
 theme.layout_fairh          = themes_path.."theme/layouts/fairh.png"
 theme.layout_fairv          = themes_path.."theme/layouts/fairv.png"
