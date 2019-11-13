@@ -77,11 +77,11 @@ local menu_theme = {
 
 local menu = awful.menu({
     items = {
-        { "Brightness to 15%", function() set_brightness('15') update_screen() end },
-        { "Brightness to 30%", function() set_brightness('30') update_screen() end },
-        { "Brightness to 50%", function() set_brightness('50') update_screen() end },
-        { "Brightness to 75%", function() set_brightness('75') update_screen() end },
         { "Brightness to 100%", function() set_brightness('100') update_screen() end },
+        { "Brightness to 75%", function() set_brightness('75') update_screen() end },
+        { "Brightness to 50%", function() set_brightness('50') update_screen() end },
+        { "Brightness to 30%", function() set_brightness('30') update_screen() end },
+        { "Brightness to 15%", function() set_brightness('15') update_screen() end },
     },
     theme = menu_theme,
 })
