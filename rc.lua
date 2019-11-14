@@ -132,7 +132,9 @@ menubar.utils.terminal = terminal
 -- Tags mouse events
 --------------------------------------------------------------------------------
 local taglist_buttons = gears.table.join(
-    awful.button({ }, 1, function(t) t:view_only() end),
+    awful.button({ }, 1, function(t)
+        t:view_only()
+    end),
     awful.button({ modkey }, 1, function(t)
         if client.focus then
             client.focus:move_to_tag(t)
@@ -383,15 +385,14 @@ globalkeys = gears.table.join(
 -- Client keys
 --------------------------------------------------------------------------------
 clientkeys = gears.table.join(
-    awful.key({modkey,}, "f",
-        function (c)
-            c.fullscreen = not c.fullscreen
-            c:raise()
-        end,
-        {description = "toggle fullscreen", group = "client"}),
+    awful.key({ modkey, }, "f", function (c)
+        c.fullscreen = not c.fullscreen
+        c:raise()
+    end, { description = "toggle fullscreen", group = "client" }),
 
-    awful.key({modkey, "Shift"}, "q", function (c) c:kill() end,
-              {description = "close", group = "client"}),
+    awful.key({ modkey, "Shift" }, "q", function (c)
+        c:kill()
+    end, { description = "close", group = "client" }),
 
     awful.key({modkey, "Control"}, "space", awful.client.floating.toggle,
               {description = "toggle floating", group = "client"}),
@@ -608,6 +609,7 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
+    awful.titlebar.enable_tooltip = false
     awful.titlebar(c) : setup {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
