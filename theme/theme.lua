@@ -25,7 +25,7 @@ theme.fg_minimize           = "#505050"
 theme.useless_gap           = 5
 theme.border_width          = dpi(4)
 theme.border_normal         = theme.bg_normal
-theme.border_focus          = theme.bg_urgent
+theme.border_focus          = "#e45e5e"
 theme.border_marked         = "#91231c"
 
 theme.menu_submenu_icon     = themes_path.."theme/submenu.png"
