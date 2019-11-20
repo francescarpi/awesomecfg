@@ -82,6 +82,9 @@ local menu = awful.menu({
         { "Brightness to 50%", function() set_brightness('50') update_screen() end },
         { "Brightness to 30%", function() set_brightness('30') update_screen() end },
         { "Brightness to 15%", function() set_brightness('15') update_screen() end },
+        { "-------", function() end },
+        { "Two monitors", function() awful.util.spawn("xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI1 --primary --mode 1920x1200 --pos 1920x0 --rotate normal --output VIRTUAL1 --off") end },
+        { "One monitor", function() awful.util.spawn("ixrandr --output eDP1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI1 --off --output VIRTUAL1 --off") end },
     },
     theme = menu_theme,
 })
