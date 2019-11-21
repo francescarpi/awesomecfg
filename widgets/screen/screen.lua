@@ -92,7 +92,7 @@ local menu = awful.menu({
 screen_widget:buttons(awful.util.table.join(
 
     awful.button({ }, 1, function ()
-        menu:show()
+        menu:toggle()
     end),
 
     awful.button({ }, 5, function ()
