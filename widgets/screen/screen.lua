@@ -14,12 +14,11 @@ screen_widget = wibox.layout {
     layout = wibox.layout.fixed.horizontal,
     {
         widget = wibox.container.margin,
-        top = 4,
         left = 10,
         {
-            widget = wibox.widget.imagebox,
-            image = cfg_path .. "widgets/screen/video-display.png",
-            forced_width = 14
+            widget = wibox.widget.textbox,
+            markup = "<span color='#d71eb8'></span>",
+            font = 'Fontawesome 10'
         }
     },
     {

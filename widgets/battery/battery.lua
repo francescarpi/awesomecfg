@@ -5,17 +5,17 @@ local cfg_path = gfs.get_configuration_dir()
 local beautiful = require("beautiful")
 
 local text = wibox.widget.textbox()
-local icon = wibox.widget.imagebox()
+local icon = wibox.widget.textbox()
+local icon_color = "#d77a1e"
 
 battery_widget = wibox.layout {
     layout = wibox.layout.fixed.horizontal,
     {
         widget = wibox.container.margin,
-        top = 2,
         left = 5,
         {
             widget = icon,
-            forced_width = 17
+            font = 'Fontawesome 10'
         }
     },
     {
@@ -50,13 +50,13 @@ awful.widget.watch(
         end
 
         if percent >= 0 and percent <= 5 then
-            icon:set_image(cfg_path.."widgets/battery/battery-caution.png")
+            icon:set_markup_silently("<span color='" .. icon_color .. "'></span>")
         elseif percent > 5 and percent <= 50 then
-            icon:set_image(cfg_path.."widgets/battery/battery-low.png")
+            icon:set_markup_silently("<span color='" .. icon_color .. "'></span>")
         elseif percent > 50 and percent <= 75 then
-            icon:set_image(cfg_path.."widgets/battery/battery-good.png")
+            icon:set_markup_silently("<span color='" .. icon_color .. "'></span>")
         elseif percent > 75 then
-            icon:set_image(cfg_path.."widgets/battery/battery-full.png")
+            icon:set_markup_silently("<span color='" .. icon_color .. "'></span>")
         end
     end,
     battery_widget

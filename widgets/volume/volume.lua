@@ -5,17 +5,17 @@ local cfg_path = gfs.get_configuration_dir()
 local beautiful = require("beautiful")
 local gears = require("gears")
 
-local icon = wibox.widget.imagebox()
+local icon = wibox.widget.textbox()
 local text = wibox.widget.textbox()
+local icon_color = "#1e8dd7"
 
 volume_widget = wibox.layout {
     layout = wibox.layout.fixed.horizontal,
     {
         widget = wibox.container.margin,
-        top = 5,
         {
             widget = icon,
-            forced_width = 12
+            font = 'Fontawesome 10'
         }
     },
     {
@@ -34,20 +34,20 @@ local function update_value()
 
     local onoff = string.match(stdout, "%[(o[^%]]*)%]")
     local value = tonumber(string.match(stdout, "(%d?%d?%d)%%"))
-    text:set_text(" " .. value .. "% ")
 
     if string.find(onoff, "on", 1, true) then
         text:set_text(" " .. value .. "% ")
+
         if value >= 0 and value <= 25 then
-            icon:set_image(cfg_path.."widgets/volume/audio-volume-low.png")
+            icon:set_markup_silently("<span color='" .. icon_color .. "'></span>")
         elseif value > 25 and value <= 75 then
-            icon:set_image(cfg_path.."widgets/volume/audio-volume-medium.png")
+            icon:set_markup_silently("<span color='" .. icon_color .. "'></span>")
         elseif value> 75 then
-            icon:set_image(cfg_path.."widgets/volume/audio-volume-high.png")
+            icon:set_markup_silently("<span color='" .. icon_color .. "'></span>")
         end
     else
-        icon:set_image(cfg_path.."widgets/volume/audio-volume-muted.png")
-        text:set_markup_silently(" <span color=\"" .. beautiful.bg_urgent .. "\">M</span> ")
+        icon:set_markup_silently("<span color='" .. beautiful.bg_urgent .. "'></span>")
+        text:set_text("")
     end
 end
 
@@ -55,25 +55,7 @@ update_value()
 
 awful.widget.watch(
     'amixer sget Master', 5,
-    function(widget, stdout, stderr, reason, exit_code)
-        local onoff = string.match(stdout, "%[(o[^%]]*)%]")
-        local value = tonumber(string.match(stdout, "(%d?%d?%d)%%"))
-        text:set_text(" " .. value .. "% ")
-
-        if string.find(onoff, "on", 1, true) then
-            text:set_text(" " .. value .. "% ")
-            if value >= 0 and value <= 25 then
-                icon:set_image(cfg_path.."widgets/volume/audio-volume-low.png")
-            elseif value > 25 and value <= 75 then
-                icon:set_image(cfg_path.."widgets/volume/audio-volume-medium.png")
-            elseif value> 75 then
-                icon:set_image(cfg_path.."widgets/volume/audio-volume-high.png")
-            end
-        else
-            icon:set_image(cfg_path.."widgets/volume/audio-volume-muted.png")
-            text:set_markup_silently(" <span color=\"" .. beautiful.bg_urgent .. "\">M</span> ")
-        end
-    end,
+    update_value,
     volume_widget
 )
 

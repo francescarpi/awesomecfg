@@ -4,19 +4,18 @@ local beautiful = require("beautiful")
 local gfs = require("gears.filesystem")
 local cfg_path = gfs.get_configuration_dir()
 
-local icon = wibox.widget.imagebox(cfg_path .. "widgets/touchpad/touchpad.png")
 local text = wibox.widget.textbox('Off')
 
 touchpad_widget = wibox.layout {
     layout = wibox.layout.fixed.horizontal,
     {
         widget = wibox.container.margin,
-        top = 5,
         right = 5,
         left = 5,
         {
-            widget = icon,
-            forced_width = 12
+            widget = wibox.widget.textbox,
+            markup = "<span color='#3e1ed7'></span>",
+            font = 'Fontawesome 10'
         }
     },
     {

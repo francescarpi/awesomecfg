@@ -7,13 +7,12 @@ spotify_widget = wibox.layout {
     layout = wibox.layout.fixed.horizontal,
     {
         widget = wibox.container.margin,
-        top = 4,
         left = 5,
         right = 5,
         {
-            widget = wibox.widget.imagebox,
-            image = cfg_path .. "widgets/spotify/spotify.png",
-            forced_width = 13
+            widget = wibox.widget.textbox,
+            markup = "<span color='#1ed760'></span>",
+            font = 'Fontawesome 10'
         }
     }
 }

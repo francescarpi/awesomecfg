@@ -8,12 +8,11 @@ clock_widget = wibox.layout {
     layout = wibox.layout.fixed.horizontal,
     {
         widget = wibox.container.margin,
-        top = 4,
         left = 10,
         {
-            widget = wibox.widget.imagebox,
-            image = cfg_path .. "widgets/clock/calendar.png",
-            forced_width = 13
+            widget = wibox.widget.textbox,
+            markup = "<span color='#d7a71e'></span>",
+            font = 'Fontawesome 10'
         }
     },
     {
@@ -24,11 +23,10 @@ clock_widget = wibox.layout {
     },
     {
         widget = wibox.container.margin,
-        top = 4,
         {
-            widget = wibox.widget.imagebox,
-            image = cfg_path .."widgets/clock/clock.png",
-            forced_width = 13
+            widget = wibox.widget.textbox,
+            markup = "<span color='#8fd71e'></span>",
+            font = 'Fontawesome 10'
         }
     },
     {

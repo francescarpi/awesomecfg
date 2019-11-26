@@ -10,12 +10,11 @@ loadavg_widget = wibox.layout {
     layout = wibox.layout.fixed.horizontal,
     {
         widget = wibox.container.margin,
-        top = 4,
         left = 5,
         {
-            widget = wibox.widget.imagebox,
-            image = cfg_path .. "widgets/loadavg/loadavg.png",
-            forced_width = 13
+            widget = wibox.widget.textbox,
+            markup = "<span color='#d71e46'></span>",
+            font = 'Fontawesome 10'
         }
     },
     {
