@@ -52,13 +52,13 @@ beautiful.init(awful.util.get_configuration_dir() .. "theme/theme.lua")
 --------------------------------------------------------------------------------
 -- Loading widgets here for get beautiful cfg
 --------------------------------------------------------------------------------
-require("widgets.volume.volume")
-require("widgets.battery.battery")
-require("widgets.screen.screen")
-require("widgets.clock.clock")
-require("widgets.loadavg.loadavg")
-require("widgets.spotify.spotify")
-require("widgets.touchpad.touchpad")
+require("widgets.volume")
+require("widgets.battery")
+require("widgets.screen")
+require("widgets.clock")
+require("widgets.loadavg")
+require("widgets.spotify")
+require("widgets.touchpad")
 
 --------------------------------------------------------------------------------
 -- Terminal, Editor, ModKey...
