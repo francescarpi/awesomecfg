@@ -658,6 +658,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.util.spawn("nm-applet")
 awful.util.spawn("blueman-applet")
 awful.util.spawn("flameshot")
-awful.util.spawn("picom --config " .. home .. "/.config/awesome/compton.conf")
+-- awful.util.spawn("picom --config " .. home .. "/.config/awesome/compton.conf")
+awful.util.spawn("picom")
 awful.util.spawn("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 
