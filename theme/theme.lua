@@ -102,13 +102,14 @@ theme.titlebar_bg = '#000000'
 
 -- Naughty
 local naughty = require("naughty")
-naughty.config.padding = 10
+naughty.config.padding = 20
 naughty.config.presets.normal.bg = "#FFFFFF"
+naughty.config.presets.normal.fg = "#000000"
 naughty.config.presets.normal.margin = 10
 naughty.config.presets.normal.position = "bottom_right"
+naughty.config.presets.normal.timeout = 10
 theme.notification_shape = gears.shape.rounded_rect
 theme.notification_font = "Verdana 12"
-theme.notification_width = 200
 
 
 return theme
