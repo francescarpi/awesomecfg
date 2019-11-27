@@ -50,6 +50,36 @@ end
 beautiful.init(awful.util.get_configuration_dir() .. "theme/theme.lua")
 
 --------------------------------------------------------------------------------
+-- Notifications
+--------------------------------------------------------------------------------
+naughty.config.defaults.timeout          = 5
+naughty.config.defaults.screen           = 1
+naughty.config.defaults.position         = "top_right"
+naughty.config.defaults.margin           = 4
+naughty.config.defaults.height           = 16
+naughty.config.defaults.width            = 300
+naughty.config.defaults.gap              = 1
+naughty.config.defaults.ontop            = true
+naughty.config.defaults.font             = beautiful.font or "Verdana 8"
+naughty.config.defaults.icon             = nil
+naughty.config.defaults.icon_size        = 16
+naughty.config.defaults.fg               = beautiful.fg_focus or '#ffffff'
+naughty.config.defaults.bg               = beautiful.bg_focus or '#535d6c'
+naughty.config.presets.border_color      = beautiful.border_focus or '#535d6c'
+naughty.config.defaults.border_width     = 1
+naughty.config.defaults.hover_timeout    = nil
+-- naughty.config.defaults.bg = '#ffffff'
+-- naughty.config.presets.normal = {
+--     bg = '#ffffff'
+--     -- font         = beautiful.notification_font,
+--     -- fg           = beautiful.notification_fg,
+--     -- bg           = beautiful.notification_bg,
+--     -- border_width = beautiful.notification_border_width,
+--     -- margin       = beautiful.notification_margin,
+--     -- position     = beautiful.notification_position
+-- }
+
+--------------------------------------------------------------------------------
 -- Loading widgets here for get beautiful cfg
 --------------------------------------------------------------------------------
 require("widgets.volume")
@@ -545,7 +575,8 @@ awful.rules.rules = {
                 "TelegramDesktop",
                 "Nautilus",
                 "qjackctl",
-                "QjackCtl"
+                "QjackCtl",
+                "Thunar"
             },
             name = {
                 "Event Tester",  -- xev.

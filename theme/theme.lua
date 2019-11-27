@@ -117,6 +117,7 @@ naughty.config.presets.critical.border_color = theme.fg_urgent
 theme.titlebar_bg = '#000000'
 
 -- Notifications
-theme.notification_font                         = "Verdana Bold 12"
+-- theme.notification_font                         = "Verdana Bold 12"
+-- theme.notification_bg = '#ff0000'
 
 return theme
